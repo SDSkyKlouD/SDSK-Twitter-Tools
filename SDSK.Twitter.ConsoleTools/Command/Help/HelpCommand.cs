@@ -11,7 +11,6 @@ namespace SDSK.Twitter.ConsoleTools.Command.Help {
         protected string _executableFileName = System.IO.Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
         public void DoCommand(params string[] args) {
-
             Console.WriteLine("【SDSK Twitter Tools】\n" +
                               "  - A utility console program that plays with Twitter.\n" +
                               "  - Made only for SD SkyKlouD. Any issues will not be reviewed.\n" +
