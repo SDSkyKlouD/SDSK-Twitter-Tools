@@ -40,7 +40,7 @@ namespace SDSK.Twitter.ConsoleTools.Command {
             }
 
             // Run main help command if something's wrong
-            new TopHelpCommand().DoCommand();
+            new HelpCommand().DoCommand();
         }
     }
 }

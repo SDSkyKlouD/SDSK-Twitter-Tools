@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace SDSK.Twitter.ConsoleTools.Command.Help {
-    class TopHelpCommand : ICommand {
+    class HelpCommand : ICommand {
         public string CommandHelpDescription { get; } = "Shows this help message.";
         public List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)> {
             ("specific_command", "Show help about the command, if specified", true)
@@ -13,7 +13,7 @@ namespace SDSK.Twitter.ConsoleTools.Command.Help {
         public void DoCommand(params string[] args) {
 
             Console.WriteLine("【SDSK Twitter Tools】\n" +
-                              "  - An app that plays with Twitter.\n" +
+                              "  - A utility console program that plays with Twitter.\n" +
                               "  - Made only for SD SkyKlouD. Any issues will not be reviewed.\n" +
                               "  - SD SkyKlouD is not responsible to any loss/damage of your data.\n" +
                               "  - Source code is available at https://github.com/SDSkyKlouD/SDSK-Twitter-Tools \n" +
