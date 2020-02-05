@@ -1,0 +1,3 @@
+# SDSK-Twitter-Tools
+A .NET Core app that plays with Twitter.  
+**THE APP HAS BEEN MADE FOR PRIVATE USE ONLY. I'M NOT RESPONSIBLE FOR ANY ISSUES FROM OTHER THAN ME.**
