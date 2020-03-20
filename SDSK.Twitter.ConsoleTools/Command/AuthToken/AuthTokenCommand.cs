@@ -36,7 +36,7 @@ namespace SDSK.Twitter.ConsoleTools.Command.AuthToken {
                 Console.WriteLine("Initiating authentication with consumer key/secret...\n");
 
                 var auth = Tweetinvi.AuthFlow.InitAuthentication(new Tweetinvi.Models.ConsumerCredentials(consumerKey, consumerSecret));
-                string pinNumber = null;
+                string pinNumber;
 
                 if(OpenUrl(auth.AuthorizationURL)) {
                     Console.WriteLine("Your web browser will be opened to Twitter app authentication page.");

@@ -1,19 +1,27 @@
-﻿using SDSK.Twitter.ConsoleTools.Command.Help;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace SDSK.Twitter.ConsoleTools.Command {
     public static class CommandProcessor {
         private static readonly Dictionary<string, ICommand> _commandDictionary;
+        private static readonly Dictionary<string, ICommand> _commandReplOnlyDictionary;
 
-        static CommandProcessor() => _commandDictionary = new Dictionary<string, ICommand>();
+        static CommandProcessor() {
+            _commandDictionary = new Dictionary<string, ICommand>();
+            _commandReplOnlyDictionary = new Dictionary<string, ICommand>();
+        }
 
         public static void RegisterCommand(string commandName, ICommand commandObject)
             => _commandDictionary.Add(commandName.ToLower(), commandObject);
 
+        public static void RegisterReplOnlyCommand(string commandName, ICommand commandObject)
+            => _commandReplOnlyDictionary.Add(commandName.ToLower(), commandObject);
+
         public static Dictionary<string, ICommand> GetAllRegisteredCommands()
             => new Dictionary<string, ICommand>(_commandDictionary);
+
+        public static Dictionary<string, ICommand> GetAllRegisteredReplOnlyCommands()
+            => new Dictionary<string, ICommand>(_commandReplOnlyDictionary);
 
         public static ICommand GetSpecificCommandObject(string command) {
             if(_commandDictionary.ContainsKey(command.ToLower())) {
@@ -23,7 +31,15 @@ namespace SDSK.Twitter.ConsoleTools.Command {
             }
         }
 
-        public static void Process(params string[] commands) {
+        public static ICommand GetSpecificReplOnlyCommandObject(string command) {
+            if(_commandReplOnlyDictionary.ContainsKey(command.ToLower())) {
+                return _commandReplOnlyDictionary[command.ToLower()];
+            } else {
+                return null;
+            }
+        }
+
+        public static bool Process(params string[] commands) {
             if(commands != null && commands.Length >= 1) {
                 string mainCommandName = commands[0].ToLower();
                 var command = GetSpecificCommandObject(mainCommandName);
@@ -31,16 +47,30 @@ namespace SDSK.Twitter.ConsoleTools.Command {
                 if(command != null) {
                     command.DoCommand(commands.ToList().GetRange(1, commands.Length - 1).ToArray());
 
-                    return;
+                    return true;
                 } else {
-                    Console.WriteLine("Command not found.\n");
+                    // Trying REPL only commands if the program is in REPL mode
+                    if(Statics.IsReplMode) {
+                        var replOnlyCommand = GetSpecificReplOnlyCommandObject(mainCommandName);
+
+                        if(replOnlyCommand != null) {
+                            replOnlyCommand.DoCommand(commands.ToList().GetRange(1, commands.Length - 1).ToArray());
+
+                            return true;
+                        }
+                    }
+
+                    return false;
                 }
             } else {
-                Console.WriteLine("No command has given, or something went wrong with command processor.\n");
-            }
+                if(Statics.IsReplMode) {
+                    return false;
+                } else {
+                    REPL.REPLProcessor.StartRepl();
 
-            // Run main help command if something's wrong
-            new HelpCommand().DoCommand();
+                    return true;
+                }
+            }
         }
     }
 }

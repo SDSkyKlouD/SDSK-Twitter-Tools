@@ -12,11 +12,12 @@ namespace SDSK.Twitter.ConsoleTools.Command.Help {
 
         public void DoCommand(params string[] args) {
             Console.WriteLine("【SDSK Twitter Tools】\n" +
-                              "  - A utility console program that plays with Twitter.\n" +
+                              "  - A console utility program that plays with Twitter.\n" +
                               "  - Made only for SD SkyKlouD. Any issues will not be reviewed.\n" +
                               "  - SD SkyKlouD is not responsible to any loss/damage of your data.\n" +
                               "  - Source code is available at https://github.com/SDSkyKlouD/SDSK-Twitter-Tools \n" +
-                              "  - ⓒ SD SkyKlouD\n");
+                              "  - ⓒ SD SkyKlouD\n\n" +
+                              " { } means required parameter, and [ ] means optional parameter.\n\n");
 
             if(args.Length == 1) {
                 var command = CommandProcessor.GetSpecificCommandObject(args[0]);
@@ -39,12 +40,27 @@ namespace SDSK.Twitter.ConsoleTools.Command.Help {
                 var commandObject = commands[command];
                 PrintCommandHelpMessage(command, commandObject.CommandHelpDescription, commandObject.CommandOptions);
             }
+
+            if(Statics.IsReplMode) {
+                var replOnlyCommands = CommandProcessor.GetAllRegisteredReplOnlyCommands();
+
+                foreach(string command in replOnlyCommands.Keys) {
+                    var commandObject = replOnlyCommands[command];
+                    PrintCommandHelpMessage(command, commandObject.CommandHelpDescription, commandObject.CommandOptions);
+                }
+
+                Console.WriteLine("* To exit REPL mode, type 'exit' or press Ctrl-C.\n");
+            }
         }
 
         protected void PrintCommandHelpMessage(string commandName,
                                                string commandHelpDesc,
                                                List<(string optionName,string optionDesc, bool optionCanIgnore)> optionObjects) {
-            Console.Write($"== {_executableFileName} {commandName}");
+            if(Statics.IsReplMode) {
+                Console.Write($"== {commandName}");
+            } else {
+                Console.Write($"== {_executableFileName} {commandName}");
+            }
 
             if(optionObjects != null) {
                 foreach(var (optionName, _, optionCanIgnore) in optionObjects!) {
