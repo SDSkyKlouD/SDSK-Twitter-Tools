@@ -13,14 +13,14 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
         };
 
         public void DoCommand(params string[] args) {
-            bool revealHidings = (args != null && args.Length == 1 && args[0] != null && args[0].Trim() == "1");
+            bool revealHidings = (args != null && args.Length == 1 && args[0] != null)
+                                 && (args[0].Trim() == "1" || args[0].Trim() == "true" || args[0].Trim() == "yes");
 
             try {
                 Console.WriteLine("Consumer Key : " + (revealHidings ? Auth.ApplicationCredentials.ConsumerKey : HideString(Auth.ApplicationCredentials.ConsumerKey)));
                 Console.WriteLine("Consumer Secret Key : " + (revealHidings ? Auth.ApplicationCredentials.ConsumerSecret : HideString(Auth.ApplicationCredentials.ConsumerSecret)));
                 Console.WriteLine("Access Token : " + (revealHidings ? Auth.ApplicationCredentials.AccessToken : HideString(Auth.ApplicationCredentials.AccessToken)));
                 Console.WriteLine("Access Token Secret : " + (revealHidings ? Auth.ApplicationCredentials.AccessTokenSecret : HideString(Auth.ApplicationCredentials.AccessTokenSecret)));
-
             } catch(NullReferenceException) {
                 Console.WriteLine("Seems like an authentication has not been made. Please authenticate your Twitter access with your app keys by 'auth' command.");
             }
