@@ -10,9 +10,9 @@ namespace SDSK.Twitter.ConsoleTools.REPL {
 
             while(true) {
                 Console.Write("SDSK Twitter Console Tools > ");
-                string command = Console.ReadLine();
+                string command = Console.ReadLine().Trim();
 
-                if(command.Split()[0].ToLower() == "exit" || command.Split()[0].ToLower() == "quit") {
+                if(command.Split()[0].ToLower() == "exit" || command.Split()[0].ToLower() == "quit" || command.Split()[0].ToLower() == "bye") {
                     Console.WriteLine("Bye ;)");
                     Environment.Exit(0);
                     break;

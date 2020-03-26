@@ -42,7 +42,7 @@ namespace SDSK.Twitter.ConsoleTools.Command {
 
         public static bool Process(params string[] commands) {
             if(commands != null && commands.Length >= 1) {
-                string mainCommandName = commands[0].Trim().ToLower();
+                string mainCommandName = commands[0].ToLower();
                 var command = GetSpecificCommandObject(mainCommandName);
 
                 if(command != null) {
