@@ -15,12 +15,11 @@ namespace SDSK.Twitter.ConsoleTools.REPL {
                 if(command.Split()[0].ToLower() == "exit" || command.Split()[0].ToLower() == "quit") {
                     Console.WriteLine("Bye ;)");
                     Environment.Exit(0);
+                    break;
                 } else {
-                    bool commandResult = CommandProcessor.Process(command.Split());
-
                     if(command.Trim().Length <= 0) continue;
 
-                    if(!commandResult) {
+                    if(!CommandProcessor.Process(command.Split())) {
                         Console.WriteLine("No such command found. Type 'help' to see the command list.\n");
                     }
                 }
