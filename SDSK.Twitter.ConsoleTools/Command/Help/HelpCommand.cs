@@ -28,8 +28,18 @@ namespace SDSK.Twitter.ConsoleTools.Command.Help {
 
                     return;
                 } else {
-                    // No command found. Show error message and continue to show full help messages
-                    Console.WriteLine($"Command '{args[0]}' not found.\n");
+                    if(Statics.IsReplMode) {
+                        var replOnlyCommand = CommandProcessor.GetSpecificReplOnlyCommandObject(args[0]);
+
+                        if(replOnlyCommand != null) {
+                            PrintCommandHelpMessage(args[0], replOnlyCommand.CommandHelpDescription, replOnlyCommand.CommandOptions);
+
+                            return;
+                        }
+                    } else {
+                        // No command found. Show error message and continue to show full help messages
+                        Console.WriteLine($"Command '{args[0]}' not found.\n");
+                    }
                 }
             }
 

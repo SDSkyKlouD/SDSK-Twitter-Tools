@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SDSK.Twitter.ConsoleTools.Command {
@@ -58,6 +59,8 @@ namespace SDSK.Twitter.ConsoleTools.Command {
 
                             return true;
                         }
+                    } else {
+                        Console.WriteLine($"Command '{mainCommandName}' is REPL mode only command.");
                     }
 
                     return false;
