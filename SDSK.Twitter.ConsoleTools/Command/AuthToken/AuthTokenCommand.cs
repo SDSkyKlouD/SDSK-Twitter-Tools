@@ -4,15 +4,15 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace SDSK.Twitter.ConsoleTools.Command.AuthToken {
-    class AuthTokenCommand : ICommand {
-        public string CommandHelpDescription { get; } = "Get user auth token of Twitter app using PIN authentication method\n" +
-                                                        "THIS SHOULD BE USED AND INTENDED FOR TEST/TEMPORARY USE PURPOSE ONLY";
-        public List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)> {
+    class AuthTokenCommand : CommandCommon {
+        public override string CommandHelpDescription { get; } = "Get user auth token of Twitter app using PIN authentication method\n" +
+                                                                 "THIS SHOULD BE USED AND INTENDED FOR TEST/TEMPORARY USE PURPOSE ONLY";
+        public override List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)> {
             ("consumer_key", "Consumer key of Twitter app", false),
             ("consumer_secret", "Consumer secret key of Twitter app", false),
         };
 
-        public void DoCommand(params string[] args) {
+        public override void DoCommand(params string[] args) {
             if(args.Length == 2) {
                 // Check-up
                 string consumerKey = args[0];

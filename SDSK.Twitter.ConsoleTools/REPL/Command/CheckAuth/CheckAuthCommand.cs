@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using Tweetinvi;
 
 namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
-    class CheckAuthCommand : ICommand {
-        public string CommandHelpDescription { get; } = "Show current Twitter authentication status";
-        public List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)>() {
+    class CheckAuthCommand : CommandCommon {
+        public override string CommandHelpDescription { get; } = "Show current Twitter authentication status";
+        public override List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)>() {
             ("reveal_hidings",
              "Reveal hidden characters that can harm your privacy. '1' to reveal, '0' or no parameter to hide.",
              true)
         };
 
-        public void DoCommand(params string[] args) {
+        public override void DoCommand(params string[] args) {
             bool revealHidings = (args != null && args.Length == 1 && args[0] != null)
                                  && (args[0].Trim() == "1" || args[0].Trim() == "true" || args[0].Trim() == "yes");
 
