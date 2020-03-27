@@ -1,20 +1,20 @@
-﻿using System;
+﻿using SDSK.Twitter.ConsoleTools.Command;
+using System;
 using System.Collections.Generic;
 using Tweetinvi.Exceptions;
 using Tweetinvi.Models;
 
-namespace SDSK.Twitter.ConsoleTools.Command.User {
+namespace SDSK.Twitter.ConsoleTools.REPL.Command.User {
     class UserCommand : CommandCommon {
         public override string CommandHelpDescription {
             get {
-                return "Gets a user information" +
-                       (Statics.IsReplMode ? "\nOn REPL mode, this command without any parameter gets the authenticated user information" : "");
+                return "Gets an authenticated or specified user information";
             }
         }
 
         public override List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)>() {
             ("screenname",
-             "User screen name (Twitter ID starts with '@' mark)",
+             "Specific user's screen name (Twitter ID starts with '@' mark)",
              true)
         };
 
@@ -25,16 +25,10 @@ namespace SDSK.Twitter.ConsoleTools.Command.User {
                 if(args != null && args.Length == 1 && args[0] != null) {
                     user = Tweetinvi.User.GetUserFromScreenName(args[0].Replace("@", "").Trim());
                 } else {
-                    if(Statics.IsReplMode) {
-                        user = Tweetinvi.User.GetAuthenticatedUser();
-                    } else {
-                        Console.WriteLine("No parameters or more than 1 parameter has given. Check help description how to use this command.");
-
-                        return;
-                    }
+                    user = Tweetinvi.User.GetAuthenticatedUser();
                 }
             } catch(TwitterNullCredentialsException) {
-                Console.WriteLine(Statics.STR_required_auth);
+                Console.WriteLine(Statics.STR_AuthRequired);
 
                 return;
             }

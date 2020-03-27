@@ -1,7 +1,6 @@
 ﻿using SDSK.Twitter.ConsoleTools.Command;
 using System;
 using System.Collections.Generic;
-using Tweetinvi;
 
 namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
     class CheckAuthCommand : CommandCommon {
@@ -17,12 +16,12 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
                                  && (args[0].Trim() == "1" || args[0].Trim() == "true" || args[0].Trim() == "yes");
 
             try {
-                Console.WriteLine("Consumer Key : " + (revealHidings ? Auth.ApplicationCredentials.ConsumerKey : HideString(Auth.ApplicationCredentials.ConsumerKey)));
-                Console.WriteLine("Consumer Secret Key : " + (revealHidings ? Auth.ApplicationCredentials.ConsumerSecret : HideString(Auth.ApplicationCredentials.ConsumerSecret)));
-                Console.WriteLine("Access Token : " + (revealHidings ? Auth.ApplicationCredentials.AccessToken : HideString(Auth.ApplicationCredentials.AccessToken)));
-                Console.WriteLine("Access Token Secret : " + (revealHidings ? Auth.ApplicationCredentials.AccessTokenSecret : HideString(Auth.ApplicationCredentials.AccessTokenSecret)));
+                Console.WriteLine("Consumer Key : "        + (revealHidings ? Tweetinvi.Auth.ApplicationCredentials.ConsumerKey       : HideString(Tweetinvi.Auth.ApplicationCredentials.ConsumerKey)));
+                Console.WriteLine("Consumer Secret Key : " + (revealHidings ? Tweetinvi.Auth.ApplicationCredentials.ConsumerSecret    : HideString(Tweetinvi.Auth.ApplicationCredentials.ConsumerSecret)));
+                Console.WriteLine("Access Token : "        + (revealHidings ? Tweetinvi.Auth.ApplicationCredentials.AccessToken       : HideString(Tweetinvi.Auth.ApplicationCredentials.AccessToken)));
+                Console.WriteLine("Access Token Secret : " + (revealHidings ? Tweetinvi.Auth.ApplicationCredentials.AccessTokenSecret : HideString(Tweetinvi.Auth.ApplicationCredentials.AccessTokenSecret)));
             } catch(NullReferenceException) {
-                Console.WriteLine(Statics.STR_required_auth);
+                Console.WriteLine(Statics.STR_AuthRequired);
             }
 }
 
