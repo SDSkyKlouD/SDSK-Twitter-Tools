@@ -22,7 +22,7 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
                 Console.WriteLine("Access Token : " + (revealHidings ? Auth.ApplicationCredentials.AccessToken : HideString(Auth.ApplicationCredentials.AccessToken)));
                 Console.WriteLine("Access Token Secret : " + (revealHidings ? Auth.ApplicationCredentials.AccessTokenSecret : HideString(Auth.ApplicationCredentials.AccessTokenSecret)));
             } catch(NullReferenceException) {
-                Console.WriteLine("Seems like an authentication has not been made. Please authenticate your Twitter access with your app keys by 'auth' command.");
+                Console.WriteLine(Statics.STR_required_auth);
             }
 }
 
