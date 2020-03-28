@@ -15,7 +15,7 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.Auth {
 
                 var sel = Console.ReadKey();
                 if(!(sel.Key.ToString().ToLower() == "y")) {
-                    Console.WriteLine("Abort.");
+                    Console.WriteLine("\nAbort.");
 
                     return;
                 }
