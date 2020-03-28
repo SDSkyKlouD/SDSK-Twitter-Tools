@@ -7,7 +7,7 @@ using SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth;
 using SDSK.Twitter.ConsoleTools.REPL.Command.User;
 
 namespace SDSK.Twitter.ConsoleTools {
-    public class ConsoleToolsMain {
+    public class ProgramMain {
         public static void Main(string[] args) {
             CommandProcessor.RegisterCommand("help", new HelpCommand());
             CommandProcessor.RegisterCommand("repl", new ReplRedirectCommand());

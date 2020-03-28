@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <StartupObject>SDSK.Twitter.ConsoleTools.ConsoleToolsMain</StartupObject>
+    <StartupObject>SDSK.Twitter.ConsoleTools.ProgramMain</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
