@@ -27,7 +27,8 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.CheckAuth {
 
         private string HideString(string value, string hideChar = "*", int revealCharCount = 5) {
             string output = value.Substring(0, revealCharCount);
-            for(; revealCharCount > 0; revealCharCount--) {
+
+            for(int len = value.Length - revealCharCount; len > 0; len--) {
                 output += hideChar;
             }
 
