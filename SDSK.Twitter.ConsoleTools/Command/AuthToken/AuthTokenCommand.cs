@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SDSK.Twitter.ConsoleTools.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace SDSK.Twitter.ConsoleTools.Command.AuthToken {
     class AuthTokenCommand : CommandCommon {
-        public override string CommandHelpDescription { get; } = "Get user auth token of Twitter app using PIN authentication method\n" +
+        public override string CommandHelpDescription { get; } = "Gets the user auth token of Twitter app using PIN authentication method\n" +
                                                                  "THIS SHOULD BE USED AND INTENDED FOR TEST/TEMPORARY USE PURPOSE ONLY";
         public override List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)> {
             ("consumer_key", "Consumer key of Twitter app", false),
@@ -15,45 +16,10 @@ namespace SDSK.Twitter.ConsoleTools.Command.AuthToken {
         public override void DoCommand(params string[] args) {
             if(args.Length == 2) {
                 // Check-up
-                string consumerKey = args[0];
-                string consumerSecret = args[1];
+                var consumerKey = args[0].ToSecureString();
+                var consumerSecret = args[1].ToSecureString();
 
-                if(consumerKey.Length != 25) {
-                    // Consumer key length check
-                    Console.WriteLine("Consumer key (parameter 1) is not 25 character long.");
-                    return;
-                }
-
-                if(consumerSecret.Length != 50) {
-                    // Consumer secret length check
-                    Console.WriteLine("Consumer secret (parameter 2) is not 50 character long.");
-                    return;
-                }
-
-                // Start PIN authorization
-                Console.WriteLine("\n\n~~~ !!! DO NOT PROCEED AT PUBLIC PLACE! I WARNED YOU! !!! ~~~\n\n");
-
-                Console.WriteLine("Initiating authentication with consumer key/secret...\n");
-
-                var auth = Tweetinvi.AuthFlow.InitAuthentication(new Tweetinvi.Models.ConsumerCredentials(consumerKey, consumerSecret));
-                string pinNumber;
-
-                if(OpenUrl(auth.AuthorizationURL)) {
-                    Console.WriteLine("Your web browser will be opened to Twitter app authentication page.");
-                    Console.WriteLine($"  If not opened, manually open an web browser and navigate to: {auth.AuthorizationURL}\n");
-                } else {
-                    Console.WriteLine($"Opening URL failed! You can manually open an web browser and navigate to: {auth.AuthorizationURL}\n");
-                }
-
-                Console.WriteLine("After logged in, the page will provide 7-character PIN numbers.");
-                do {
-                    Console.Write("Please provide the correct PIN numbers here: ");
-                    pinNumber = Console.ReadLine();
-                } while(!(int.TryParse(pinNumber, out _) && pinNumber.Length == 7));
-
-                Console.WriteLine("\nProcessing...\n");
-
-                var cred = Tweetinvi.AuthFlow.CreateCredentialsFromVerifierCode(pinNumber, auth);
+                var cred = TweetinviUtil.AuthorizeAndGetCredentials(consumerKey, consumerSecret);
 
                 if(cred != null && !string.IsNullOrEmpty(cred.AccessToken) && !string.IsNullOrEmpty(cred.AccessTokenSecret)) {
                     Console.WriteLine($"  Access token:        {cred.AccessToken}");

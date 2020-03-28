@@ -9,7 +9,7 @@ namespace SDSK.Twitter.ConsoleTools.REPL {
             Console.WriteLine("  To exit REPL mode, type 'exit' or press Ctrl-C.\n");
 
             while(true) {
-                Console.Write("SDSK Twitter Console Tools > ");
+                Console.Write("\nSDSK Twitter Console Tools > ");
                 string command = Console.ReadLine().Trim();
 
                 if(command.Split()[0].ToLower() == "exit" || command.Split()[0].ToLower() == "quit" || command.Split()[0].ToLower() == "bye") {

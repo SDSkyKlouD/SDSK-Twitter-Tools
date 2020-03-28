@@ -6,11 +6,7 @@ using Tweetinvi.Models;
 
 namespace SDSK.Twitter.ConsoleTools.REPL.Command.User {
     class UserCommand : CommandCommon {
-        public override string CommandHelpDescription {
-            get {
-                return "Gets an authenticated or specified user information";
-            }
-        }
+        public override string CommandHelpDescription { get; } = "Gets an authenticated or specified user information";
 
         public override List<(string, string, bool)> CommandOptions { get; } = new List<(string, string, bool)>() {
             ("screenname",
@@ -42,9 +38,13 @@ namespace SDSK.Twitter.ConsoleTools.REPL.Command.User {
 
             Console.WriteLine();
             Console.WriteLine(" *                 Nickname : " + user.Name);
-            Console.WriteLine(" * Screen name (account ID) : " + user.ScreenName);
+            Console.WriteLine(" * Screen name (Twitter ID) : @" + user.ScreenName);
             Console.WriteLine(" *        Profile image URL : " + user.ProfileImageUrlFullSize);
             Console.WriteLine(" *       Profile banner URL : " + user.ProfileBannerURL);
+            Console.WriteLine();
+            Console.WriteLine(" *                Following : " + user.FriendsCount);
+            Console.WriteLine(" *                Followers : " + user.FollowersCount);
+           
         }
     }
 }
