@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -69,7 +70,11 @@ namespace SDSK.Twitter.ConsoleTools.Util {
                         WindowStyle = ProcessWindowStyle.Hidden
                     });
                 } else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                    Process.Start("xdg-open", url);
+                    try {
+                        Process.Start("xdg-open", url);
+                    } catch(Win32Exception) {
+                        Console.WriteLine("xdg-open command is not found. Please make sure 'xdg-utils' package had been installed, or continue to manual way.");
+                    }
                 } else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
                     Process.Start("open", url);
                 } else {
