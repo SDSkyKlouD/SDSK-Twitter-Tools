@@ -34,27 +34,5 @@ namespace SDSK.Twitter.ConsoleTools.Command.AuthToken {
                 Console.WriteLine("You can check how to use this command with 'help' command.");
             }
         }
-
-        public bool OpenUrl(string url) {
-            // .NET Core Process.Start(<url>) workaround solution referenced from https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
-            try {
-                Process.Start(url);
-            } catch {
-                if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url.Replace("&", "^&")}") {
-                        CreateNoWindow = true,
-                        WindowStyle = ProcessWindowStyle.Hidden
-                    });
-                } else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                    Process.Start("xdg-open", url);
-                } else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
-                    Process.Start("open", url);
-                } else {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }
